@@ -1,0 +1,8 @@
+# GCC objects and deps
+*.o
+*.d
+# Binutils output files
+*.elf
+*.bin
+*.asm
+*.map
