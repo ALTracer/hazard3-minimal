@@ -1,7 +1,7 @@
 TARGET = blink
 
 SRC = main.c
-SRC += startup.S
-SRC += syscalls.c irq.c
+SRC += ../common/syscalls.c
+SRC += ../common/startup.S ../common/irq.c
 
 include ../build.mk
