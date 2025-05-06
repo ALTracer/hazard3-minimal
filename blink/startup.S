@@ -13,7 +13,7 @@ j \name
 .endm
 
 	.section .vector,"ax",@progbits
-	.align 1
+	.align 6
 _vector_base:
 	.option norvc;
 	/* Single exception vector, also takes IRQs if vectoring is disabled */
@@ -34,7 +34,7 @@ _vector_base:
 	VEC .halt
 	VEC .halt
 	VEC .halt
-	.option rvc;
+	//.option rvc;
 	.section .text.vector_handler,"ax",@progbits
 	.weak handle_exception
 	.weak isr_machine_softirq

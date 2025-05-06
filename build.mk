@@ -7,7 +7,7 @@ OBJDUMP = $(PREFIX)-objdump
 NM = $(PREFIX)-nm
 
 # -march=rv32imac_zicsr_zifencei_zba_zbb_zbkb_zbs_zcmp
-CFLAGS = -Wall -Os -mabi=ilp32 -march=rv32imac_zicsr -ffunction-sections
+CFLAGS = -Wall -Os -ggdb3 -mabi=ilp32 -march=rv32i_zicsr -ffunction-sections
 LDFLAGS = --specs=nosys.specs --specs=nano.specs -Wl,--gc-sections -Wl,-Map,$(TARGET).map -Wl,-T../ld/spram.ld
 # -nostdlib -ffreestanding
 FLAGS = $(CFLAGS) $(LDFLAGS)
