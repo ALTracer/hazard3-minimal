@@ -36,13 +36,9 @@ _vector_base:
 	VEC .halt
 	//.option rvc;
 	.section .text.vector_handler,"ax",@progbits
-	.weak handle_exception
 	.weak isr_machine_softirq
 	.weak isr_machine_timer
 	.weak isr_external_irq
-handle_exception:
-1:
-	j 1b
 isr_machine_softirq:
 1:
 	j 1b
@@ -81,3 +77,25 @@ Reset_Handler:
 .halt:
 	wfi
 	j .halt
+
+	.section .text.handle_exception,"ax",@progbits
+	.global handle_exception
+	.align 1
+handle_exception:
+.cfi_sections .debug_frame
+.cfi_startproc
+	add	sp,sp,-8
+	sw	s0,4(sp)
+	csrr	s0,mepc
+	sw	s0,0(sp)
+	add	s0,sp,8
+/* x8=s0=fp, x2=sp, x1=ra=mepc */
+.cfi_def_cfa s0, 0
+.cfi_offset sp, -4
+.cfi_offset ra, -8
+	jal zero, handle_exception_c
+	lw	ra,0(sp)
+	lw	s0,4(sp)
+	add	sp,sp,8
+	mret
+.cfi_endproc
